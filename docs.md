@@ -117,7 +117,7 @@ contract UIForWETH is IERCUI, IERC165 {
 This contract is already deployed at 0xdAC4252915726753D1bc8086F1c624a326aEB7c0 (TODO change according to the new standard) on Sepolia. ([Check it out](https://monobase.xyz/sepolia/address/0xdAC4252915726753D1bc8086F1c624a326aEB7c0/code) - TODO change link)
 
 Here is the frontend it creates:
-![Illustration of the simple frontends created by the above contract. It says: "Total supply of WETH on Sepolia is 4440.8 ETH"](simple-frontend.png)
+![Illustration of the simple frontends created by the above contract. It says: "Total supply of WETH on Sepolia is 4440.8 ETH"](assets/simple-frontend.png)
 
 You can view this frontend in real-time on [monobase](https://monobase.xyz/sepolia/address/0xdAC4252915726753D1bc8086F1c624a326aEB7c0/frontend). (TODO change link)
 
