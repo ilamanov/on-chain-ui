@@ -1,6 +1,6 @@
 # Interactivity
 
-If you don't want to limit your HTML to static content, you can make also make it interactive. You can add onClick handlers to buttons (without any JS) and create animations in CSS. Here is an example button ([deployed](https://monobase.xyz/sepolia/address/0x2fFad973A2f6c4C15003274511A4baA0D40C3147/frontend) on Sepolia):
+If you don't want to limit your HTML to static content, you can make also make it interactive. You can add onClick handlers to buttons (without any JS) and create animations in CSS. Here is an example button (deployed at [0x2fFad973A2f6c4C15003274511A4baA0D40C3147](https://monobase.xyz/sepolia/address/0x2fFad973A2f6c4C15003274511A4baA0D40C3147/frontend) on Sepolia):
 
 ![Animation showing a failing money bills after a button saying "make it rain" is clicked](assets/make-it-rain.gif)
 
