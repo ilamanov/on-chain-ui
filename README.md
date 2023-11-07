@@ -31,4 +31,5 @@ If you need help or have any suggestions, hop into the [Discord](https://discord
 
 - [Docs](docs.md)
 - [Examples](examples.md)
+- [List of fun frontend ideas to build](frontends-to-build.md)
 - [On-chain UI ERC](erc.md)
