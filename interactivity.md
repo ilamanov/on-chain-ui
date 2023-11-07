@@ -65,7 +65,7 @@ function getStyle() public pure returns (string memory) {
 As you can see no, JS is required! The logic is done using Solidity via a declarative approach in HTML.
 
 - `ui-post` specifies which function to call when the button is clicked. This function should return a string with some HTML.
-- `ui-target` specifies which DOM element to modify with the returned HTML from the above function.
+- `ui-target` specifies which DOM element to modify with the returned HTML from the above function. If you want to modify the same DOM element that has the `ui-target` property, you can omit this attribute.
 - `ui-swap` specifies the swap behavior, i.e. how to reconcile the newly returned HTML with the target DOM element. In the example above, "beforeend" specifies that we should insert the newly returned HTML before the end of the DOM element with `id="container"`. For all available values of `ui-swap`, see [here](https://htmx.org/attributes/hx-swap/).
 
 > _The link above takes you to the HTMX docs page but on-chain UI does not depend on HTMX in any way. We are just reusing some great ideas from the HTMX library. In the future, there will be proper docs for `ui-swap` that don't link to the HTMX page._
