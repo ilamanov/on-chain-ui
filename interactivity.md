@@ -1,6 +1,6 @@
 # Interactivity
 
-If you don't want to limit your HTML to static content, you can make also make it interactive. You can add onClick handlers to buttons (without any JS) and create animations in CSS. Here is an example button (deployed at [0x2fFad973A2f6c4C15003274511A4baA0D40C3147](https://monobase.xyz/sepolia/address/0x2fFad973A2f6c4C15003274511A4baA0D40C3147/frontend) on Sepolia):
+If you don't want to limit your HTML to static content, you can make also make it interactive. You can add onClick handlers to buttons (without any JS) and create animations in CSS. Here is an example button (deployed at [0x11Cf5a6d842cC93353Cd9630a78f53AC5AA77b1A](https://monobase.xyz/sepolia/address/0x11Cf5a6d842cC93353Cd9630a78f53AC5AA77b1A/frontend) on Sepolia):
 
 ![Animation showing a failing money bills after a button saying "make it rain" is clicked](assets/make-it-rain.gif)
 
@@ -8,7 +8,7 @@ And the code for it is simple:
 
 ```Solidity
 function getUI(address forAddress) public view override returns (string memory) {
-    bytes memory makeItRainCall = abi.encodeCall(this.makeItRainCall, (forAddress));
+    bytes memory makeItRainCall = abi.encodeCall(this.makeItRain, (forAddress));
     return string.concat(
     	getStyle(),
         "<div id=\"container\" style=\"background-color: #27272a; color: white; font-size: 24px; padding: 40px;\">",
@@ -20,7 +20,7 @@ function getUI(address forAddress) public view override returns (string memory) 
     );
 }
 
-function makeItRainCall(address forAddress) public view returns (string memory) {
+function makeItRain(address forAddress) public view returns (string memory) {
 	return string.concat(
 		"<div style=\"display: flex; gap: 20px; font-size: 42px;\">",
 			"<div style=\"animation: slideDown ease-in 2s 0s infinite;\">",
