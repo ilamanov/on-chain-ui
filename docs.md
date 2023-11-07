@@ -1,10 +1,12 @@
 # Docs
 
 ## What is this?
+
 The documentation for how to create simple frontends on-chain. <br/>
 The frontends are deployed to the chain and served from there.
 
 ## Motivation
+
 Why do we need to host frontends on the chain? 2 reasons: decentralization and composability.
 
 1. **Decentralization** - allows frontends for smart contracts to be hosted in a decentralized manner.
@@ -13,6 +15,7 @@ Why do we need to host frontends on the chain? 2 reasons: decentralization and c
 ## How do I create a simple frontend?
 
 Deploy this contract:
+
 ```Solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
@@ -114,18 +117,19 @@ contract UIForWETH is IERCUI, IERC165 {
 }
 ```
 
-This contract is already deployed at 0xdAC4252915726753D1bc8086F1c624a326aEB7c0 (TODO change according to the new standard) on Sepolia. ([Check it out](https://monobase.xyz/sepolia/address/0xdAC4252915726753D1bc8086F1c624a326aEB7c0/code) - TODO change link)
+This contract is already deployed at [0x8cFFDb63527B5e0687B0dc25b488Aff57656A2F6](https://monobase.xyz/sepolia/address/0x8cFFDb63527B5e0687B0dc25b488Aff57656A2F6/code) on Sepolia.
 
 Here is the frontend it creates:
 ![Illustration of the simple frontends created by the above contract. It says: "Total supply of WETH on Sepolia is 4440.8 ETH"](assets/simple-frontend.png)
 
-You can view this frontend in real-time on [monobase](https://monobase.xyz/sepolia/address/0xdAC4252915726753D1bc8086F1c624a326aEB7c0/frontend). (TODO change link)
+You can view this frontend in real-time on [monobase](https://monobase.xyz/sepolia/address/0x8cFFDb63527B5e0687B0dc25b488Aff57656A2F6/frontend). Monobase makes it easy to play with the frontends by showing your changes live as you edit the code. Just go to your favorite contract, navigate to "frontend tab" and click on the "Create on-chain frontend" button.
+![Screenshot of the "Create on-chain frontend" button on monobase](assets/create-on-chain-frontend.png)
 
 ## How does this work internally?
 
 The idea is to create contracts that return HTML strings according to some standard (like ERC-20 or ERC-721). And then there will be wrappers that interpret/render this HTML. They are responsible for all the wiring like the RPC provider, wallet connections, etc.
 
-monobase.xyz is one such wrapper. It’s actually easy to host your own wrapper. I’m planning to create an open source repo with a simple wrapper which you can clone and host anywhere. The code for the wrapper is not very complicated.
+[monobase.xyz](https://monobase.xyz) is one such wrapper. It’s actually easy to host your own wrapper. I’m planning to create an open source repo with a simple wrapper which you can clone and host anywhere. The code for the wrapper is not very complicated.
 
 ## The ERC
 
@@ -157,16 +161,78 @@ Almost all valid HTML is supported (including `<style>` tags). This standard is 
 
 ## How do I build more complicated frontends?
 
-Currently the following features are supported my the [monobase.xyz](https://monobase.xyz/) wrapper. Other wrappers can add more feature support. It would be ideal if these features are also part of the standard (maybe like extensions to ERC-UI - similar to the ERC721Enumerable extension)
+Currently the following features are supported by the [monobase.xyz](https://monobase.xyz/) wrapper. Other wrappers can add more feature support. It would be ideal if these features are also part of the standard (maybe like extensions to ERC-UI - similar to the ERC721Enumerable extension)
 
-* **Interactivity** - instead of HTML being static, allow to add on-click handlers to things like buttons and forms.
-* **User input** - allow to take input from user using `<form>`, `<input>`, etc. The values entered by the user will be validated by the wrapper (for example for address field, user won’t be able to enter 0xinvalid), and optionally can be validated by the contract too. The contract can access the values entered by the user.
-* **Wallet connection** - initiate a wallet connection if user is not already connected and get access to the connected address.
-* **Signing and sending transactions** - request tx signature/send from user’s wallet. The contract will have access to the tx hash and the data returned from the tx
+- **Interactivity** - instead of HTML being static, allow to add on-click handlers to things like buttons and forms.
+- **User input** - allow to take input from user using `<form>`, `<input>`, etc. The values entered by the user will be validated by the wrapper (for example for address field, user won’t be able to enter 0xinvalid), and optionally can be validated by the contract too. The contract can access the values entered by the user.
+- **Wallet connection** - initiate a wallet connection if user is not already connected and get access to the connected address.
+- **Signing and sending transactions** - request tx signature/send from user’s wallet. The contract will have access to the tx hash and the data returned from the tx
 
 ### Interactivity
 
-In no way does it depend on HTMX. We are just borrowing concepts/abstractions of declarative approach (and also the fact that you rely on your backend server for interactivity) from HTMX. But the idea could be implemented with anything - React, Svelte, etc
+If you don't want to limit your HTML to static content, you can make also make it interactive. You can add onClick handlers to buttons (without any JS) and create animations in CSS. Here is an example button ([deployed](https://monobase.xyz/sepolia/address/0x2fFad973A2f6c4C15003274511A4baA0D40C3147/frontend) on Sepolia):
+
+![Animation showing a failing money bills after a button saying "make it rain" is clicked](assets/make-it-rain.gif)
+
+And the code for it is simple:
+
+```Solidity
+function getUI(address forAddress) public view override returns (string memory) {
+    bytes memory makeItRainCall = abi.encodeCall(this.makeItRainCall, (forAddress));
+    return string.concat(
+    	getStyle(),
+        "<div id=\"container\" style=\"background-color: #27272a; color: white; font-size: 24px; padding: 40px;\">",
+    		"<div>Total supply of WETH on ", getChainString(), " is ", floatToString(thisContract.totalSupply(), 1 ether, 1), " ETH", "</div>",
+    		"<button ui-post=\"/this/", bytesToString(makeItRainCall), "\" ui-target=\"#container\" ui-swap=\"beforeend\" class=\"button\" style=\"display: block; margin-top: 20px;\">",
+    			"Make it rain",
+    		"</button>",
+        "</div>"
+    );
+}
+
+function makeItRainCall(address forAddress) public view returns (string memory) {
+	return string.concat(
+		"<div style=\"display: flex; gap: 20px; font-size: 42px;\">",
+			"<div style=\"animation: slideDown ease-in 2s 0s infinite;\">",
+				unicode"💵",
+			"</div>",
+			"<div style=\"animation: slideDown ease-in 2s 0.7s infinite;\">",
+				unicode"💶",
+			"</div>",
+			"<div style=\"animation: slideDown ease-in 2s 0.3s infinite;\">",
+				unicode"💴",
+			"</div>",
+		"</div>"
+	);
+}
+
+function getStyle() public pure returns (string memory) {
+	return string.concat(
+		"<style>",
+			".button {",
+				"border: 1px solid #7dc71b;",
+				"color: #7dc71b;",
+				"padding: 8px 14px;",
+				"border-radius: 4px;",
+			"}",
+			".button:hover {",
+    			"background-color: #7dc71b;",
+				"color: black;",
+  			"}",
+			"@keyframes slideDown {",
+  				"0% {",
+    				"transform: translateY(0);",
+  				"}",
+  				"100% {",
+    				"transform: translateY(230px);"
+  				"}",
+			"}",
+		"</style>"
+	);
+}
+```
+
+As you can see no, JS is required! The logic is done using Solidity via a declarative approach in HTML.
 
 ### User input
 
