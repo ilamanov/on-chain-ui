@@ -131,6 +131,8 @@ The idea is to create contracts that return HTML strings according to some stand
 
 [monobase.xyz](https://monobase.xyz) is one such wrapper. It’s actually easy to host your own wrapper. I’m planning to create an open source repo with a simple wrapper which you can clone and host anywhere. The code for the wrapper is not very complicated.
 
+Writing UI on-chain is nice because it allows you to inject arbitrary on-chain data into the HTML. There is no need to fetch this data via libraries like viem/ethers. Just build the HTML you want to serve right on the chain.
+
 ## The ERC
 
 Let’s call it ERC-UI for now.
