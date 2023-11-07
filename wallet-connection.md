@@ -42,7 +42,7 @@ function connected(address forAddress) public view returns (string memory) {
 }
 ```
 
-As you can see, all you have to do implement a "Connect wallet" button is to annotate your `<button>` with `type="connect-wallet"`. Then you can access the `connected address` by the keyword `$connectedAddress` (like so: `ui-post="/this/0x6438c4d5$ui-connectedAddress"`, where `0x6438c4d5` is the function selector of `onConnected` function.)
+As you can see, all you have to do implement a "Connect wallet" button is to annotate your `<button>` with `type="connect-wallet"`. Then you can access the `connected address` by the special variable `$ui-connectedAddress` (of type `address`). In the example above, we access it using `ui-post="/this/0x6438c4d5$ui-connectedAddress"`, where `0x6438c4d5` is the function selector of `onConnected` function.
 
 The wrapper is expected to do a full reload when the connected address changes. So that's why you see the UI updating after I connect my wallet. There is also a brief message saying `"Connected with 0x123..."` that's shown immediately to the user before any UI update takes place.
 
