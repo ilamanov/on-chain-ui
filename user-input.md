@@ -36,6 +36,6 @@ function checkBalance(address forAddress) public view returns (string memory) {
 }
 ```
 
-As you can see, you can access the values entered by the user with `$value-name` keyword. In the example above, we access the address using the `$balanceAddress` keyword where `balanceAddress` is the name of the `<input>` element.
+As you can see, you can access the values entered by the user with `$[inputName]` keyword. In the example above, we access the address using the `$balanceAddress` keyword where `balanceAddress` is the name of the `<input>` element.
 
 Contract-side validation can be done by implementing a function that returns a boolean in your contract. TODO: create an example.
