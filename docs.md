@@ -159,7 +159,7 @@ Almost all valid HTML is supported (including `<style>` tags). This standard is 
 >
 > Instead, whenever you need JS (for stuff like interactivity), we use declarative HTML tag approach (outlined below in **Interactivity**). In the future, JS may be reconsidered if Solidity proves to be not enough.
 
-## How do I build more complicated frontends?
+## How do I build more sophisticated frontends?
 
 Currently the following features are supported by the [monobase.xyz](https://monobase.xyz/) wrapper. Other wrappers can add more feature support. It would be ideal if these features are also part of the standard (maybe like extensions to ERC-UI - similar to the ERC721Enumerable extension)
 
