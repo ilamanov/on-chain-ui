@@ -10,21 +10,20 @@ The code for the above is:
 function getUI(address forAddress) public view override returns (string memory) {
     ...
     return string.concat(
-            ...
-    		"<form ui-post=\"/this/", bytesToString(abi.encodePacked(this.checkBalance.selector)), "$balanceAddress\" ui-target=\"#balance\" ui-swap=\"innerHTML\" style=\"margin-top: 40px; display: flex; gap: 10px; align-items: center;\">",
-    			"<label for=\"balance-address\">Check balance for</label>",
-    			"<input ",
-    			  "type=\"address\" ",
-    			  "name=\"balanceAddress\" ",
-    			  "class=\"input\" ",
-    			  "id=\"balance-address\" ",
-    			  "placeholder=\"address\"/>",
-        		"<button type=\"submit\" class=\"button center-children\" style=\"padding: 3px 14px 3px 28px;\">",
-    				"Check", loadingSpinner(),
-    			"</button>",
-    		"</form>",
-    		"<div id=\"balance\" style=\"margin-top: 20px;\"></div>",
-        "</div>"
+        ...
+    	"<form ui-post=\"/this/", bytesToString(abi.encodePacked(this.checkBalance.selector)), "$balanceAddress\" ui-target=\"#balance\" ui-swap=\"innerHTML\" style=\"margin-top: 40px; display: flex; gap: 10px; align-items: center;\">",
+    		"<label for=\"balance-address\">Check balance for</label>",
+    		"<input ",
+    		  "type=\"address\" ",
+    		  "name=\"balanceAddress\" ",
+    		  "class=\"input\" ",
+    		  "id=\"balance-address\" ",
+    		  "placeholder=\"address\"/>",
+        	"<button type=\"submit\" class=\"button center-children\" style=\"padding: 3px 14px 3px 28px;\">",
+    			"Check", loadingSpinner(),
+    		"</button>",
+    	"</form>",
+        ...
     );
 }
 
